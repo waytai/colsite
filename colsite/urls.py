@@ -13,13 +13,15 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url
+from django.conf.urls import include, url 
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    #url(r'^$', 'learn.views.index', name='index'), 
     url(r'^$', 'learn.views.test', name='test'), 
     url(r'^home/', 'learn.views.home', name='home'), 
     url(r'^index/', 'learn.views.index', name='index'), 
+    url('^download/filename=(?P<filename>.{1,500})/$', 'learn.views.file_download', name='download'),
 ]

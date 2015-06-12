@@ -101,9 +101,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-print "-"*30, BASE_DIR
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
-
-STATICFILES_DIRS = (
-    os.path.join(os.path.dirname(BASE_DIR), 'static'),
-)
+Download_file = os.path.join(BASE_DIR,'learn')
+Download_file = os.path.join(Download_file,'static')
+Download_file = os.path.join(Download_file,'download')
+#STATIC_ROOT = os.path.join(BASE_DIR,'static')
+#print "-*"*20 , STATIC_ROOT
+#
+#STATICFILES_DIRS = (
+#    os.path.join(os.path.dirname(BASE_DIR), 'static'),
+#)
