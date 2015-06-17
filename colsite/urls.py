@@ -18,10 +18,11 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    #url(r'^$', 'learn.views.index', name='index'), 
-    url(r'^$', 'learn.views.test', name='test'), 
-    url(r'^home/', 'learn.views.home', name='home'), 
+    url(r'^$', 'learn.views.company', name='company'), 
+    url(r'^test$', 'learn.views.test', name='test'), 
+    url(r'^home/', 'learn.views.home', name='home_value'), 
     url(r'^index/', 'learn.views.index', name='index'), 
+    url(r'^start$', 'learn.views.start', name='start'), 
+    url(r'^admin/', include(admin.site.urls)),
     url('^download/filename=(?P<filename>.{1,500})/$', 'learn.views.file_download', name='download'),
 ]

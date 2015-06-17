@@ -1,5 +1,6 @@
 #coding:utf-8
 from django.shortcuts import render
+from django.shortcuts import render_to_response
 from django.core.servers.basehttp import FileWrapper  
 import mimetypes  
 from colsite import settings  
@@ -14,8 +15,11 @@ def index(request):
 def home(request):
     return render(request, 'home.html')
 
-def test(request):
-    return render(request, 'test.html')
+def company(request):
+    return render_to_response('company.html',{})
+
+def start(request):
+    return render_to_response('start.html',{})
 
 def file_download(request, filename):  
     filepath = os.path.join(settings.Download_file, filename)    
@@ -24,3 +28,7 @@ def file_download(request, filename):
     response = HttpResponse(wrapper, content_type = content_type)  
     response['Content-Disposition'] = "attachment; filename=%s" % filename  
     return response    
+
+def test(request):
+    return render(request, 'test.html')
+
