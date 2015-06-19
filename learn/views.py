@@ -2,9 +2,12 @@
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.core.servers.basehttp import FileWrapper  
+from django.template import RequestContext
+from models import UploadFile
 import mimetypes  
 from colsite import settings  
 import os 
+from forms import UploadFileForm
 
 from django.http import HttpResponse
  
@@ -31,4 +34,20 @@ def file_download(request, filename):
 
 def test(request):
     return render(request, 'test.html')
+
+def upload_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            #username=form.cleaned_data['username']
+            uploadfile=form.cleaned_data['uploadfile']
+            u=UploadFile()
+            #u.username=username
+            u.uploadfile=uploadfile
+            u.save()
+            return HttpResponse('OK')
+    else:
+        form = UploadFileForm()
+    print "-"*20, form
+    return render_to_response('upload.html', {'form': form},  context_instance=RequestContext(request))
 
