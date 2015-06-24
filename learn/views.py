@@ -18,6 +18,9 @@ def index(request):
 def home(request):
     return render(request, 'home.html')
 
+def login(request):
+    return render(request, 'login.html')
+
 def company(request):
     return render_to_response('company.html',{})
 
@@ -34,6 +37,23 @@ def file_download(request, filename):
 
 def test(request):
     return render(request, 'test.html')
+
+def manage(request):
+    username = request.POST.get("email")
+    print "-"*20, request.POST.get("email")
+    print "-"*20, request.POST.get("username")
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            uploadfile=form.cleaned_data['uploadfile']
+            u=UploadFile()
+            u.uploadfile=uploadfile
+            u.save()
+            return render_to_response('manage.html', {'username': username, 'form': form},context_instance=RequestContext(request))
+    else:
+        form = UploadFileForm()
+    print "-"*20, form
+    return render_to_response('manage.html', {'username': username},context_instance=RequestContext(request))
 
 def upload_file(request):
     if request.method == 'POST':

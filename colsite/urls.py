@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'^home/', 'learn.views.home', name='home_value'), 
     url(r'^index/', 'learn.views.index', name='index'), 
     url(r'^start$', 'learn.views.start', name='start'), 
+    url(r'^login$', 'learn.views.login', name='login'), 
+    url(r'^manage$', 'learn.views.manage', name='manage'), 
     url(r'^upload_file$', 'learn.views.upload_file', name='upload_file'), 
     url(r'^admin/', include(admin.site.urls)),
     url('^download/filename=(?P<filename>.{1,500})/$', 'learn.views.file_download', name='download'),

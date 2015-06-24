@@ -30,8 +30,6 @@
 <![endif]-->
 
 <!-- Favicons -->
-<link rel="apple-touch-icon" href="http://v3.bootcss.com/apple-touch-icon.png">
-<link rel="icon" href="http://v3.bootcss.com/favicon.ico">
 <script>
   var _hmt = _hmt || [];
 </script>
@@ -56,6 +54,9 @@
         <li>
           <a href="{% url 'start' %}" onclick="_hmt.push([&#39;_trackEvent&#39;, &#39;docv3-navbar&#39;, &#39;click&#39;, &#39;V3导航-起步&#39;])">起步</a>
         </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'login' %}" onclick="_hmt.push([&#39;_trackEvent&#39;, &#39;docv3-navbar&#39;, &#39;click&#39;, &#39;V3导航-Bootstrap中文网&#39;])" >管理员登录</a></li>
       </ul>
     </nav>
   </div>
