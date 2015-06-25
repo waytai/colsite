@@ -11,6 +11,15 @@ from forms import UploadFileForm
 from django.contrib.auth import authenticate, login
 
 from django.http import HttpResponse
+
+def get_download_file():
+    file_list = []
+    download_dir = settings.Download_file 
+    for x in os.listdir(download_dir):
+        file_list.append(x)
+    return file_list
+
+down_list = get_download_file()
  
 # Create your views here.
 def index(request):
@@ -26,8 +35,8 @@ def mylogin(request):
     user = authenticate(username=username, password=password)
     if user is not None and user.is_active:
         login(request, user) 
-        return render_to_response('manage.html', {'username': username}, context_instance=RequestContext(request))
-    return render(request, 'login.html')
+        return render_to_response('manage.html', {'username': username, 'downlist':down_list}, context_instance=RequestContext(request))
+    return render_to_response('login.html', context_instance=RequestContext(request))
 
 def company(request):
     return render_to_response('company.html',{})
@@ -54,10 +63,10 @@ def manage(request):
             u=UploadFile()
             u.uploadfile=uploadfile
             u.save()
-            return render_to_response('manage.html', {'username': username, 'form': form},context_instance=RequestContext(request))
+            return render_to_response('manage.html', {'username': username, 'form': form, 'downlist':down_list},context_instance=RequestContext(request))
     else:
         form = UploadFileForm()
-    return render_to_response('manage.html', {'username': username},context_instance=RequestContext(request))
+    return render_to_response('manage.html', {'username': username, 'downlist':down_list},context_instance=RequestContext(request))
 
 def upload_file(request):
     if request.method == 'POST':
@@ -73,4 +82,6 @@ def upload_file(request):
     else:
         form = UploadFileForm()
     return render_to_response('upload.html', {'form': form},  context_instance=RequestContext(request))
+
+
 

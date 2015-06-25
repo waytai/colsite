@@ -80,11 +80,7 @@
         <div  role="main">
           <div class="bs-docs-section">
                   <h1 id="download" class="page-header">上传</h1>
-
-
-            
-
-           </div>
+          </div>
             <form method="post" enctype="multipart/form-data" action="{% url 'manage' %}">
                     {% csrf_token %}
                     <div class="col-lg-3">
@@ -102,8 +98,19 @@
                     </div><br>
             </form>
         </div>
+        
       </div>
+
+            <ul>  
+                {% for item in downlist %}  
+                <li>{{ item }}</li>  
+                {% endfor %}  
+            </ul>  
+
     </div>
+
+
+    
 
 <!-- Footer
 ================================================== -->
