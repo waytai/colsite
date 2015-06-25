@@ -8,6 +8,7 @@ import mimetypes
 from colsite import settings  
 import os 
 from forms import UploadFileForm
+from django.contrib.auth import authenticate, login
 
 from django.http import HttpResponse
  
@@ -18,7 +19,13 @@ def index(request):
 def home(request):
     return render(request, 'home.html')
 
-def login(request):
+def mylogin(request):
+    username = request.POST.get('email')
+    password = request.POST.get('password')
+    user = authenticate(username=username, password=password)
+    if user is not None and user.is_active:
+        login(request, user) 
+        return render_to_response('manage.html', {'username': username}, context_instance=RequestContext(request))
     return render(request, 'login.html')
 
 def company(request):
@@ -39,9 +46,6 @@ def test(request):
     return render(request, 'test.html')
 
 def manage(request):
-    username = request.POST.get("email")
-    print "-"*20, request.POST.get("email")
-    print "-"*20, request.POST.get("username")
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -52,7 +56,6 @@ def manage(request):
             return render_to_response('manage.html', {'username': username, 'form': form},context_instance=RequestContext(request))
     else:
         form = UploadFileForm()
-    print "-"*20, form
     return render_to_response('manage.html', {'username': username},context_instance=RequestContext(request))
 
 def upload_file(request):
@@ -68,6 +71,5 @@ def upload_file(request):
             return HttpResponse('OK')
     else:
         form = UploadFileForm()
-    print "-"*20, form
     return render_to_response('upload.html', {'form': form},  context_instance=RequestContext(request))
 

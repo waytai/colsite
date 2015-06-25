@@ -34,10 +34,10 @@
 
     <div class="container">
 
-      <form class="form-signin" role="form" method="POST" action="/manage">
-        <br />{% csrf_token %}<br />
+        <form class="form-signin" role="form" method="POST" action="{% url 'mylogin' %}">
+        {% csrf_token %}
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="email" class="form-control" name="email" placeholder="Email address" required autofocus>
+        <input type="text" class="form-control" name="email" placeholder="Username" required autofocus>
         <input type="password" class="form-control" name="password" placeholder="Password" required>
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
