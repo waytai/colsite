@@ -20,6 +20,7 @@ def home(request):
     return render(request, 'home.html')
 
 def mylogin(request):
+    global username
     username = request.POST.get('email')
     password = request.POST.get('password')
     user = authenticate(username=username, password=password)
