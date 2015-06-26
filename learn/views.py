@@ -19,7 +19,7 @@ def get_download_file():
         file_list.append(x)
     return file_list
 
-down_list = get_download_file()
+#down_list = get_download_file()
  
 # Create your views here.
 def index(request):
@@ -35,7 +35,7 @@ def mylogin(request):
     user = authenticate(username=username, password=password)
     if user is not None and user.is_active:
         login(request, user) 
-        return render_to_response('manage.html', {'username': username, 'downlist':down_list}, context_instance=RequestContext(request))
+        return render_to_response('manage.html', {'username': username, 'downlist':get_download_file()}, context_instance=RequestContext(request))
     return render_to_response('login.html', context_instance=RequestContext(request))
 
 def company(request):
@@ -45,12 +45,19 @@ def start(request):
     return render_to_response('start.html',{})
 
 def file_download(request, filename):  
-    filepath = os.path.join(settings.Download_file, filename)    
-    wrapper = FileWrapper(open(filepath, 'rb'))  
-    content_type = mimetypes.guess_type(filepath)[0]  
-    response = HttpResponse(wrapper, content_type = content_type)  
-    response['Content-Disposition'] = "attachment; filename=%s" % filename  
-    return response    
+    file_name = ''
+    for x in get_download_file():
+        if filename in x:
+            file_name = x
+    filepath = os.path.join(settings.Download_file, file_name)    
+    if os.path.exists(filepath):
+        wrapper = FileWrapper(open(filepath, 'rb'))  
+        content_type = mimetypes.guess_type(filepath)[0]  
+        response = HttpResponse(wrapper, content_type = content_type)  
+        response['Content-Disposition'] = "attachment; filename=%s" % filename  
+        return response    
+    else:
+        return start()
 
 def test(request):
     return render(request, 'test.html')
@@ -63,10 +70,10 @@ def manage(request):
             u=UploadFile()
             u.uploadfile=uploadfile
             u.save()
-            return render_to_response('manage.html', {'username': username, 'form': form, 'downlist':down_list},context_instance=RequestContext(request))
+            return render_to_response('manage.html', {'username': username, 'form': form, 'downlist':get_download_file()},context_instance=RequestContext(request))
     else:
         form = UploadFileForm()
-    return render_to_response('manage.html', {'username': username, 'downlist':down_list},context_instance=RequestContext(request))
+    return render_to_response('manage.html', {'username': username, 'downlist':get_download_file()},context_instance=RequestContext(request))
 
 def upload_file(request):
     if request.method == 'POST':
@@ -83,5 +90,5 @@ def upload_file(request):
         form = UploadFileForm()
     return render_to_response('upload.html', {'form': form},  context_instance=RequestContext(request))
 
-
-
+def delete_file(request):
+    pass
