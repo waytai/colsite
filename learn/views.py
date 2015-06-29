@@ -44,6 +44,9 @@ def company(request):
 def start(request):
     return render_to_response('start.html',{})
 
+def notexist(request):
+    return render_to_response('start.html',{})
+
 def file_download(request, filename):  
     file_name = ''
     for x in get_download_file():
@@ -94,7 +97,3 @@ def delete_file(request):
     targetFile = os.path.join(delete_dir, delete_file)
     os.remove(targetFile)
     return render_to_response('manage.html', {'username': username, 'downlist':get_download_file()},context_instance=RequestContext(request))
-
-
-
-
