@@ -79,10 +79,8 @@ def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            #username=form.cleaned_data['username']
             uploadfile=form.cleaned_data['uploadfile']
             u=UploadFile()
-            #u.username=username
             u.uploadfile=uploadfile
             u.save()
             return HttpResponse('OK')
@@ -91,4 +89,12 @@ def upload_file(request):
     return render_to_response('upload.html', {'form': form},  context_instance=RequestContext(request))
 
 def delete_file(request):
-    pass
+    delete_dir = settings.Download_file 
+    delete_file = request.GET['file_name']
+    targetFile = os.path.join(delete_dir, delete_file)
+    os.remove(targetFile)
+    return render_to_response('manage.html', {'username': username, 'downlist':get_download_file()},context_instance=RequestContext(request))
+
+
+
+

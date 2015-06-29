@@ -40,7 +40,7 @@
     {
         console.log("is delete");
         console.log(a);
-        a.remove();
+        location.href="/delete_file"+"?file_name="+a;
         }
 </script>
 
@@ -115,7 +115,7 @@ input{ vertical-align:middle; margin:0; padding:0}
             <br>
             <ul>  
                 {% for item in downlist %}  
-                <li>{{ item }} <a  onclick="delete_item(this);">delete</a></li>  
+                <li>{{ item }} <a  onclick="delete_item('{{item}}');">delete</a></li>  
                 {% endfor %}  
             </ul>  
         </div> 
